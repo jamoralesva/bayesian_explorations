@@ -187,6 +187,7 @@ class XenoCantoClient:
             if exito:
                 contador += 1
                 if exportar_csv:
+                    grabacion['file-name'] = nombre_archivo
                     grabaciones_procesadas.append(grabacion)
                 
         print(f"Proceso finalizado. Se descargaron {contador} archivos en '{directorio_salida}'.")
@@ -213,11 +214,8 @@ if __name__ == "__main__":
     cliente = XenoCantoClient(api_key=API_KEY_DEMO)
     
     try:
-        # Opción A: Guardar únicamente los metadatos en un archivo CSV (Rápido, ideal para análisis de datos)
-        cliente.guardar_metadatos_csv(query='cnt:colombia', ruta_csv='analisis_aves/metadatos_colombia.csv', limite=5)
-        
         # Opción B: Descargar audio y generar simultáneamente el CSV dentro del directorio
-        cliente.descargar_por_busqueda(query='cnt:colombia', directorio_salida='aves_colombia', limite=1, exportar_csv=True)
+        cliente.descargar_por_busqueda(query='cnt:colombia', directorio_salida='aves_colombia', limite=None, exportar_csv=True)
         
     except Exception as e:
         print(f"Ocurrió un error en la ejecución: {e}")
